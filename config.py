@@ -4,22 +4,22 @@ def config(app):
     '''
     Discord webhook URL to send data to. Set to None to disable plugin entirely.
     '''
-    app.config['DISCORD_WEBHOOK_URL'] = environ.get('DISCORD_WEBHOOK_URL')
+    app.config['DISCORD_WEBHOOK_URL'] = 'https://XXXXX'
 
     '''
     Limit on number of solves for challenge to trigger webhook for. Set to 0 to send a message for every solve.
     '''
-    app.config['DISCORD_WEBHOOK_LIMIT'] = environ.get('DISCORD_WEBHOOK_LIMIT', '3')
+    app.config['DISCORD_WEBHOOK_LIMIT'] = '0'
 
     '''
     Webhook flag submission format string. Valid vars: team, user, solves, fsolves (formatted solves), challenge, category, team_id, user_id, challenge_slug, value
     '''
-    app.config['DISCORD_WEBHOOK_MESSAGE'] = environ.get('DISCORD_WEBHOOK_MESSAGE', 'Congratulations to team {team} for the {fsolves} solve on challenge {challenge}!')
+    app.config['DISCORD_WEBHOOK_MESSAGE'] = environ.get('DISCORD_WEBHOOK_MESSAGE', '{["🥇", "🥈", "🥉"][data.solves-1] if data.solves <= 3 else "" }「{data.user}」が「{data.challenge}」のフラグを入手しました！({data.solves}番目)')
 
     '''
     Post webhook message when challenge is changed (published, hidden or updated)
     '''
-    app.config['DISCORD_WEBHOOK_CHALL'] = environ.get('DISCORD_WEBHOOK_CHALL', True)
+    app.config['DISCORD_WEBHOOK_CHALL'] = environ.get('DISCORD_WEBHOOK_CHALL', False)
 
     '''
     Post webhook message when challenge is updated (otherwise only published or hidden)
@@ -41,4 +41,4 @@ def config(app):
 
     This allows conditional formatting: e.g. {'FIRST BLOOD' if data.solves == 1 else ''}
     '''
-    app.config['DISCORD_WEBHOOK_FSTRING'] = environ.get('DISCORD_WEBHOOK_FSTRING', False)
+    app.config['DISCORD_WEBHOOK_FSTRING'] = True
